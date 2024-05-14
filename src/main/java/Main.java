@@ -15,40 +15,28 @@ import Schedule.Command;
 import Schedule.CreateEventCommand;
 import Schedule.Visitor;
 import Schedule.EventPrinterVisitor;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 // Паттерны: Синглтон, Фабрика, Команда, Посетитель, Наблюдатель, Мост, Компоновщик
 
 public class Main {
     public static void main(String[] args) {
-        // Создаем фабрику для создания мероприятий
-        EventFactory weddingFactory = SingletonEventFactory.getInstance();
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ScanBeanConfig.class);
+        EventFactory weddingFactory = context.getBean(EventFactory.class);
+        ResourceFactory resourceFactory = context.getBean(ResourceFactory.class);
+        PersonnelFactory personnelFactory = context.getBean(PersonnelFactory.class);
+        Schedule schedule = context.getBean(Schedule.class);
 
-        ResourceFactory resourceFactory = SingletonResourceFactory.getInstance();
-
-        PersonnelFactory personnelFactory = SingletonPersonnelFactory.getInstance();
-        // Создаем экземпляр класса Schedule.Schedule
-        Schedule schedule = new Schedule();
-
-        // Создаем наблюдателя
-        ScheduleObserver notifier = new ScheduleNotifier();
-        schedule.registerObserver(notifier);
-
-        // Передаем данные о мероприятии
         EventType eventType = EventType.WEDDING;
         String resourceDescription = "Wedding Hall";
         String personnelRole = "Wedding Planner";
         String eventDescription = "Beautiful wedding ceremony";
 
         Personnel personnel = personnelFactory.createPersonnel(personnelRole);
-
         Resource myResource = resourceFactory.createResource(resourceDescription);
-        // Создаем мероприятие с помощью фабрики мероприятий и переданных данных
         Event weddingEvent = weddingFactory.createEvent(eventType, myResource, personnel, eventDescription);
 
-        // Создаем команду для создания мероприятия
-        Command createWeddingCommand = new CreateEventCommand(weddingEvent, schedule);
-
-        // Выполняем команду
-        createWeddingCommand.execute();
+        Command command1 = context.getBean(Command.class, weddingEvent, schedule);
+        command1.execute();
 
         EventType eventType2 = EventType.NEW_YEAR_CELEBRATION;
         String resourceDescription2 = "Snowman";
@@ -56,20 +44,10 @@ public class Main {
         String eventDescription2 = "Snowing";
 
         Personnel personnel2 = personnelFactory.createPersonnel(personnelRole2);
-
         Resource myResource2 = resourceFactory.createResource(resourceDescription2);
-        // Создаем мероприятие с помощью фабрики мероприятий и переданных данных
         Event newyearEvent = weddingFactory.createEvent(eventType2, myResource2, personnel2, eventDescription2);
 
-        // Создаем команду для создания мероприятия
-        Command createnewyearCommand = new CreateEventCommand(newyearEvent, schedule);
-
-        // Выполняем команду
-        createnewyearCommand.execute();
-
-        // Выводим информацию о мероприятиях в расписании
-        Visitor eventVisitor = new EventPrinterVisitor();
-        schedule.accept(eventVisitor);
-
+        Command command2 = context.getBean(Command.class, newyearEvent, schedule);
+        command2.execute();
     }
 }
