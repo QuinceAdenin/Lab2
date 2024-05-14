@@ -1,8 +1,8 @@
-package Event;
+package Components.Event;
 
-import Resource.Resource;//Подключили ресурсы
-import Personnel.Personnel;//Подключили персонал
-import Schedule.Visitor;//Подлючили посетителя
+import Components.Resource.Resource;//Подключили ресурсы
+import Components.Personnel.Personnel;//Подключили персонал
+import Components.Schedule.Visitor;//Подлючили посетителя
 //Класс мероприятие в
 public class MyEvent implements Event{
     private EventType type;
@@ -24,9 +24,9 @@ public class MyEvent implements Event{
     //Вывод строки
     @Override
     public String toString() {
-        return "Event Type: " + type +
-                ", Resource: " + myResource.getDescription() +
-                ", Personnel: " + personnel.getRole() +
+        return "Components.Event Type: " + type +
+                ", Components.Resource: " + myResource.getDescription() +
+                ", Components.Personnel: " + personnel.getRole() +
                 ", Description: " + description;
     }
 }

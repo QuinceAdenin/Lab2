@@ -1,5 +1,8 @@
-package Resource;
+package Components.Resource;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class SingletonResourceFactory implements ResourceFactory {
     private static SingletonResourceFactory instance;//единств экз
 

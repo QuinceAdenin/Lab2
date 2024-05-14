@@ -1,7 +1,10 @@
-package Event;
-import Resource.Resource;
-import Personnel.Personnel;
+package Components.Event;
+import Components.Resource.Resource;
+import Components.Personnel.Personnel;
+import org.springframework.stereotype.Component;
+
 //Класс реализующий паттерн фабрика мероприятий
+@Component
 public class SingletonEventFactory implements EventFactory {
     private static SingletonEventFactory instance;//единственный экз
 

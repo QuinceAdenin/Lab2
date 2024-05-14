@@ -1,10 +1,13 @@
-package Schedule;
+package Components.Schedule;
 
-import Event.Event;
+import Components.Event.Event;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 //Класс расписание
+@Component
 public class Schedule {
     private List<Event> events = new ArrayList<>();//Компоновщик
     private List<ScheduleObserver> observers = new ArrayList<>();//Компоновщик
@@ -28,6 +31,7 @@ public class Schedule {
         }
     }
     //Реализация посетителя
+    @Autowired
     public void accept(Visitor visitor) {
         for (Event event : events) {
             event.accept(visitor);

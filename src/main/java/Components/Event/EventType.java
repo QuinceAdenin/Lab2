@@ -1,4 +1,4 @@
-package Event;
+package Components.Event;
 //Виды мероприятий
 public enum EventType {
     WEDDING,

@@ -1,4 +1,4 @@
-package Resource;
+package Components.Resource;
 //Класс ресурс
 public class MyResource implements Resource {
     private String description;

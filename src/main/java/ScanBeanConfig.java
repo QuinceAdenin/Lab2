@@ -1,19 +1,19 @@
-import Event.EventFactory;
-import Event.SingletonEventFactory;
-import Personnel.PersonnelFactory;
-import Personnel.SingletonPersonnelFactory;
-import Resource.ResourceFactory;
-import Resource.SingletonResourceFactory;
-import Schedule.Schedule;
-import Schedule.Command;
-import Event.Event;
-import Schedule.CreateEventCommand;
+import Components.Event.EventFactory;
+import Components.Event.SingletonEventFactory;
+import Components.Personnel.PersonnelFactory;
+import Components.Personnel.SingletonPersonnelFactory;
+import Components.Resource.ResourceFactory;
+import Components.Resource.SingletonResourceFactory;
+import Components.Schedule.*;
+import Components.Event.Event;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
 
 @Configuration
+@ComponentScan(basePackages = {"Components"})
 public class ScanBeanConfig {
     @Bean
     public EventFactory eventFactory() {
@@ -31,13 +31,17 @@ public class ScanBeanConfig {
     }
     @Bean
     @Scope("prototype")
-    public Schedule schedule(){
+    public Schedule schedule() {
         return new Schedule();
     }
     @Bean
     @Scope("prototype")
-    public Command command(Event event,Schedule schedule){
+    public Command command(Event event,Schedule schedule) {
         return new CreateEventCommand(event, schedule);
+    }
+    @Bean
+    public Visitor visitor() {
+        return new EventPrinterVisitor();
     }
 }
 

@@ -1,6 +1,6 @@
-package Schedule;
+package Components.Schedule;
 
-import Event.Event;
+import Components.Event.Event;
 
 public interface ScheduleObserver {
     void update(Event event);

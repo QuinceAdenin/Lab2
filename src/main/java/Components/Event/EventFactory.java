@@ -1,7 +1,7 @@
-package Event;
+package Components.Event;
 
-import Personnel.Personnel;
-import Resource.Resource;
+import Components.Personnel.Personnel;
+import Components.Resource.Resource;
 
 //Интерфейс паттерна фабрика мероприятий
 public interface EventFactory {

@@ -1,6 +1,6 @@
-package Event;
+package Components.Event;
 
-import Schedule.Visitor;
+import Components.Schedule.Visitor;
 
 public interface Event {
     void accept(Visitor visitor);

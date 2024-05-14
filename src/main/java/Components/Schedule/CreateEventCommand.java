@@ -1,7 +1,10 @@
-package Schedule;
+package Components.Schedule;
 
-import Event.Event;
+import Components.Event.Event;
+import org.springframework.stereotype.Component;
+
 //команда
+@Component
 public class CreateEventCommand implements Command {
     private Event event;
     private Schedule schedule;

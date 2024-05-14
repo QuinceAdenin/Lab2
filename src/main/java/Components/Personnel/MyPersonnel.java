@@ -1,4 +1,4 @@
-package Personnel;
+package Components.Personnel;
 //Класс Персонал
 public class MyPersonnel implements Personnel{
     private String role;
