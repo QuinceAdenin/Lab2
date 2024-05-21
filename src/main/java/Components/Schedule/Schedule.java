@@ -7,32 +7,24 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 //Класс расписание
-@Component
+
 public class Schedule {
-    private List<Event> events = new ArrayList<>();//Компоновщик
-    private List<ScheduleObserver> observers = new ArrayList<>();//Компоновщик
+    private List<Event> events;//Компоновщик
+
+    @Autowired
+    private Visitor visitor;
+
+    public Schedule() {
+        this.events = new ArrayList<>();
+    }
+
     //Добавление ивента в список
     public void addEvent(Event event) {
         events.add(event);
-        notifyObservers(event);
-    }
-    //Создание наблюдателя
-    public void registerObserver(ScheduleObserver observer) {
-        observers.add(observer);
     }
 
-    public void removeObserver(ScheduleObserver observer) {
-        observers.remove(observer);
-    }
-    //Уведомление наблюдателей
-    private void notifyObservers(Event event) {
-        for (ScheduleObserver observer : observers) {
-            observer.update(event);
-        }
-    }
     //Реализация посетителя
-    @Autowired
-    public void accept(Visitor visitor) {
+    public void accept() {
         for (Event event : events) {
             event.accept(visitor);
         }

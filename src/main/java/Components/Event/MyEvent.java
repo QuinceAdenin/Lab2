@@ -3,7 +3,9 @@ package Components.Event;
 import Components.Resource.Resource;//Подключили ресурсы
 import Components.Personnel.Personnel;//Подключили персонал
 import Components.Schedule.Visitor;//Подлючили посетителя
-//Класс мероприятие в
+import org.springframework.beans.factory.annotation.Autowired;
+//Класс мероприятие
+
 public class MyEvent implements Event{
     private EventType type;
     private Resource myResource;
@@ -17,6 +19,7 @@ public class MyEvent implements Event{
         this.description = description;
     }
     //Реализация паттерна посетитель
+    
     @Override
     public void accept(Visitor visitor) {
         visitor.visit(this);
@@ -24,9 +27,9 @@ public class MyEvent implements Event{
     //Вывод строки
     @Override
     public String toString() {
-        return "Components.Event Type: " + type +
-                ", Components.Resource: " + myResource.getDescription() +
-                ", Components.Personnel: " + personnel.getRole() +
+        return "EventType: " + type +
+                ", Resource: " + myResource.getDescription() +
+                ", Personnel: " + personnel.getRole() +
                 ", Description: " + description;
     }
 }

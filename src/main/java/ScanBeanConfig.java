@@ -6,14 +6,13 @@ import Components.Resource.ResourceFactory;
 import Components.Resource.SingletonResourceFactory;
 import Components.Schedule.*;
 import Components.Event.Event;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Scope;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.*;
 
 
 @Configuration
-@ComponentScan(basePackages = {"Components"})
+@ComponentScan(basePackages = {"Components", "logger"})
+@EnableAspectJAutoProxy(proxyTargetClass = true)
 public class ScanBeanConfig {
     @Bean
     public EventFactory eventFactory() {
@@ -29,16 +28,19 @@ public class ScanBeanConfig {
     public PersonnelFactory personnelFactory() {
         return SingletonPersonnelFactory.getInstance();
     }
+
+
     @Bean
-    @Scope("prototype")
     public Schedule schedule() {
         return new Schedule();
     }
+
     @Bean
     @Scope("prototype")
-    public Command command(Event event,Schedule schedule) {
+    public Command command(Event event, Schedule schedule) {
         return new CreateEventCommand(event, schedule);
     }
+
     @Bean
     public Visitor visitor() {
         return new EventPrinterVisitor();

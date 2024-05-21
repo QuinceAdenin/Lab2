@@ -2,7 +2,7 @@ package Components.Personnel;
 
 import org.springframework.stereotype.Component;
 
-@Component
+
 public class SingletonPersonnelFactory implements PersonnelFactory {
     private static SingletonPersonnelFactory instance;//единств экз
 
